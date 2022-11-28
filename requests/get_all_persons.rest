@@ -1,0 +1,26 @@
+
+
+@contentType = application/json
+@baseurl = http://localhost:3001/api
+
+
+### GET Request
+GET {{baseurl}}/persons/
+Content-Type: {{contentType}
+
+### GET Request
+GET {{baseurl}}/persons/1
+Content-Type: {{contentType}
+
+### DELET Request
+DELETE {{baseurl}}/persons/1
+Content-Type: application/json
+
+### POST Request
+POST {{baseurl}}/persons/
+Content-Type: application/json
+
+{
+    "name":"Pertti Velmunen",
+    "number":"045-6667778" 
+}
