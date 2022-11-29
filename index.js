@@ -1,8 +1,12 @@
-const {response} = require('express')
+
 const express = require('express')
 const morgan = require('morgan')
 const app = express()
 app.use(express.json())
+
+const cors = require('cors')
+
+app.use(cors())
  
 
 
@@ -36,6 +40,11 @@ app.use(morgan(
         name: "Mary Poppendieck",
         number: "39-23-6423122",
         id: 4
+      },
+      {
+        name: "Nalle Nallersson",
+        number: "358-4545454545",
+        id: 5
       },]
 
     
@@ -45,7 +54,7 @@ app.use(morgan(
         
     })
 
-    
+     
 
     app.get('/api/info', (req,res) => {
 
@@ -63,7 +72,7 @@ app.use(morgan(
         person ? res.json(person) : res.status(404).end()
 
     })
-
+ 
 
     app.delete('/api/persons/:id', (req,res) => {
 
@@ -83,10 +92,12 @@ app.use(morgan(
             })
         }
 
+        console.log(body.number, body.name);
+
         const person = {
 
             name: body.name,
-            number: phoneNumberGenerator(),
+            number: body.number,
             id: generateId()
         }
 
@@ -98,9 +109,8 @@ app.use(morgan(
         if(!personExists && !numberIsEmpty) {
 
             persons = persons.concat(person)
-            res.json(persons)
-            
-
+            res.json(person)
+               
         }else{
 
             return res.status(400).json({error:'Name must be unique or number is missing'})
@@ -126,4 +136,4 @@ app.use(morgan(
 
     const PORT = 3001
     app.listen(PORT)
-    //console.log(`Server running on port ${PORT}`)
+    console.log(`Server running on port ${PORT}`)

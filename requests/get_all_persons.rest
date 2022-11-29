@@ -19,8 +19,3 @@ Content-Type: application/json
 ### POST Request
 POST {{baseurl}}/persons/
 Content-Type: application/json
-
-{
-    "name":"Pertti Velmunen",
-    "number":"045-6667778" 
-}
