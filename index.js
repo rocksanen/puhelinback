@@ -134,6 +134,6 @@ app.use(morgan(
 
 
 
-    const PORT = 0.0
+    const PORT = process.env.PORT || 3001;
     app.listen(PORT)
     console.log(`Server running on port ${PORT}`)
