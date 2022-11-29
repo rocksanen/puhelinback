@@ -1,7 +1,7 @@
 
 
 @contentType = application/json
-@baseurl = http://localhost:0.0.0.0./api
+@baseurl = http://localhost:100000/api
 
 
 ### GET Request
