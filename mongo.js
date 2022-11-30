@@ -41,4 +41,4 @@ const url = `mongodb+srv://phonebook:pupsinen31@cluster0.buh4i9t.mongodb.net/pho
     }
   })
   
-  module.exports = mongoose.model('Note', noteSchema)
+  module.exports = mongoose.model('Person', personSchema)
