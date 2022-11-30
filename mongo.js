@@ -8,9 +8,9 @@ if(process.argv.length < 3) {
 }
 */
 
-//const password = process.argv[2]
+const password = process.argv[2]
 
-const url = `mongodb+srv://phonebook:pupsinen31@cluster0.buh4i9t.mongodb.net/phonebook?retryWrites=true&w=majority`
+const url = `mongodb+srv://phonebook:${password}@cluster0.buh4i9t.mongodb.net/phonebook?retryWrites=true&w=majority`
 
 //mongoose.connect(url)
 
