@@ -1,8 +1,9 @@
-import {getPersons} from './mongo'
+
 const express = require('express')
 const morgan = require('morgan')
 const app = express()
 app.use(express.json())
+const Person = require('./mongo')
 
 const cors = require('cors')
 
@@ -52,12 +53,17 @@ app.use(morgan(
 
     */
 
+      const person = new Person({
+        name: body.name,
+        number: body.number,
+        id: generateId(),
+      })
+
     
     app.get('/api/persons',(req,res) => { 
-        let jepu = getPersons
-        console.log(jepu);
-        res.json(jepu)
-        
+      Person.find({}).then(person => {
+        response.json(person)
+      }) 
     })
 
      
