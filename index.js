@@ -7,6 +7,8 @@ app.use(express.json())
 const cors = require('cors')
 
 app.use(cors())
+
+app.use(express.static('build'))
  
 
 
@@ -79,7 +81,7 @@ app.use(morgan(
 
     app.delete('/api/persons/:id', (req,res) => {
 
-      console.log('jep');
+      
         const id = Number(req.params.id)
         persons = persons.filter(note => note.id !== id)
 
