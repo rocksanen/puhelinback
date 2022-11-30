@@ -62,9 +62,7 @@ let persons = [
       })
 
 
-    const getPersons = () => {
-
-
+    export function getPersons() {
         Person.find({}).then(result => {
             result.forEach(person => {
                 return person
@@ -74,7 +72,9 @@ let persons = [
         })
 
 
+
     }
+
 
   /*
   const persons = [
@@ -127,4 +127,4 @@ let persons = [
 
 
 
-export{getPersons}
+//export {//getPersons}

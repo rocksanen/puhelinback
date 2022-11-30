@@ -55,7 +55,7 @@ app.use(morgan(
     
     app.get('/api/persons',(req,res) => { 
         
-        res.json(getPersons)
+        res.json(getPersons())
         
     })
 
