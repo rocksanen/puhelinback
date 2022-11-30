@@ -54,8 +54,9 @@ app.use(morgan(
 
     
     app.get('/api/persons',(req,res) => { 
-        
-        res.json(getPersons())
+        let jepu = getPersons
+        console.log(jepu);
+        res.json(jepu)
         
     })
 

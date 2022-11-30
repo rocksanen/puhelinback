@@ -62,7 +62,7 @@ let persons = [
       })
 
 
-    export function getPersons() {
+    export  default function getPersons() {
         Person.find({}).then(result => {
             result.forEach(person => {
                 return person
