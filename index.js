@@ -79,6 +79,7 @@ app.use(morgan(
 
     app.delete('/api/persons/:id', (req,res) => {
 
+      console.log('jep');
         const id = Number(req.params.id)
         persons = persons.filter(note => note.id !== id)
 
