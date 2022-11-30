@@ -1,4 +1,4 @@
-
+import {getPersons} from './mongo'
 const express = require('express')
 const morgan = require('morgan')
 const app = express()
@@ -20,7 +20,7 @@ app.use(morgan(
 
 
 
-
+/*
 
     let persons = [
       {
@@ -50,12 +50,12 @@ app.use(morgan(
       },]
 
 
-
+    */
 
     
     app.get('/api/persons',(req,res) => { 
         
-        res.json(persons)
+        res.json(getPersons)
         
     })
 
