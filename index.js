@@ -118,8 +118,10 @@ app.use(morgan(
     }
 
     const generateId = () => {
-        const maxId = Person.length > 0
-          ? Math.max(...Person.map(n => n.id))
+
+      let persons = Person.find({})
+        const maxId = persons.length > 0
+          ? Math.max(...persons.map(n => n.id))
           : 0
         return maxId + 1
       }
