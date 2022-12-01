@@ -32,6 +32,8 @@ app.use(morgan(
 
 
 
+
+
     
     app.get('/api/persons',(req,res) => { 
       Person.find({}).then(persons => {
@@ -52,21 +54,43 @@ app.use(morgan(
 
     app.get('/api/persons/:id', (req,res) => {
         
-        const id = Number(req.params.id)
-        const person = Person.find(person => person.id === id)
-
-        person ? res.json(person) : res.status(404).end()
-
+      Person.findById(req.params.id)
+        .then(person => {
+          if(person) {
+            res.json(person)
+          }else{
+            res.status(404).end()
+          }
+        })
+        .catch(error => next(error))
     })
  
     
-    app.delete('/api/persons/:id', (req,res) => {
+    app.delete('/api/persons/:id', (req,res,next) => {
 
-      
-        const id = Number(req.params.id)
-        persons = persons.filter(note => note.id !== id)
+        Person.findOneAndRemove(req.params.id)
+          .then(result => {
+            res.status(204).end()
+          })
+          .catch(error => next(error))
 
-        res.status(204).end()
+    })
+
+    app.put('/api/persons/:id', (req, res, next) => {
+
+      const body = req.body
+    
+      const person = {
+        name: body.name,
+        number: body.number,
+        id: body.id,
+      }
+    
+      Person.findByIdAndUpdate(req.params.id, person, { new: true })
+        .then(updatedPerson => {
+          res.json(updatedPerson)
+        })
+        .catch(error => next(error))
     })
 
     
@@ -105,7 +129,7 @@ app.use(morgan(
         */
        person.save().then(savedPerson => {
         res.json(savedPerson)
-        console.log(savedPerson);
+        console.log(savedPerson, "saved person");
        })
     })
 
@@ -133,6 +157,20 @@ app.use(morgan(
     }
 
     app.use(unknownEndpoint)
+
+
+    const errorHandler = (error, request, response, next) => {
+      console.error(error.message)
+    
+      if (error.name === 'CastError') {
+        return response.status(400).send({ error: 'malformatted id' })
+      }
+    
+      next(error)
+    }
+    
+    
+    app.use(errorHandler)
 
     const PORT = process.env.PORT || 3001;
     console.log(process.env.PORT);
