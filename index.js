@@ -60,6 +60,7 @@ app.use(morgan(
     app.get('/api/persons',(req,res) => { 
       Person.find({}).then(person => {
         res.json(person)
+        console.log(person);
       }) 
     })
 
