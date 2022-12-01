@@ -108,7 +108,7 @@ app.use(morgan(
 
             name: body.name,
             number: body.number,
-            id: Object.id
+            _id: generateId()
         })
 
         //let personExists = false
@@ -142,13 +142,21 @@ app.use(morgan(
 
     const generateId = () => {
 
-      let persons = Person.find({})
+      let persona = ''
 
-      console.log(persons, "tsekkaa tää");
+      Person.find({}).then(persons => {
+        persons.json(persons)
+        console.log(persons);
         const maxId = persons.length > 0
           ? Math.max(...persons.map(n => n.id))
           : 0
         return maxId + 1
+
+
+      }) 
+
+      //console.log(persons, "tsekkaa tää");
+
       }
 
     const unknownEndpoint = (request, response) => {
