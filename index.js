@@ -97,10 +97,10 @@ app.use(morgan(
         const body = req.body
 
         if (body.content === undefined) {
-          return response.status(400).json({ error: 'content missing' })
+          return res.status(400).json({ error: 'content missing' })
         }
 
-        //console.log(body.number, body.name);
+        console.log(body.number, body.name);
 
         const person = new Person({
 
