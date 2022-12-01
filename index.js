@@ -82,8 +82,7 @@ app.use(morgan(
     
       const person = {
         name: body.name,
-        number: body.number,
-        id: body.id,
+        number: body.number
       }
     
       Person.findByIdAndUpdate(req.params.id, person, { new: true })
@@ -108,7 +107,8 @@ app.use(morgan(
         const person = new Person({
 
             name: body.name,
-            number: body.number
+            number: body.number,
+            id: Object.id
         })
 
         //let personExists = false
