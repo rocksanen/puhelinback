@@ -108,8 +108,7 @@ app.use(morgan(
         const person = new Person({
 
             name: body.name,
-            number: body.number,
-            id: generateId()
+            number: body.number
         })
 
         //let personExists = false
