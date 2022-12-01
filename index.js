@@ -105,6 +105,7 @@ app.use(morgan(
         */
        person.save().then(savedPerson => {
         res.json(savedPerson)
+        console.log(savedPerson);
        })
     })
 
