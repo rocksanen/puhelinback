@@ -59,7 +59,7 @@ app.use(morgan(
 
     })
  
-    /*
+    
     app.delete('/api/persons/:id', (req,res) => {
 
       
@@ -69,7 +69,7 @@ app.use(morgan(
         res.status(204).end()
     })
 
-    */
+    
 
     app.post('/api/persons', (req,res) => {
 
