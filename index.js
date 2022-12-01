@@ -120,6 +120,8 @@ app.use(morgan(
     const generateId = () => {
 
       let persons = Person.find({})
+
+      console.log(persons, "tsekkaa tää");
         const maxId = persons.length > 0
           ? Math.max(...persons.map(n => n.id))
           : 0
