@@ -59,7 +59,7 @@ app.use(morgan(
     
     app.get('/api/persons',(req,res) => { 
       Person.find({}).then(person => {
-        response.json(person)
+        res.json(person)
       }) 
     })
 
