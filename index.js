@@ -1,16 +1,25 @@
 
-require('dotenv').config()
+
 const express = require('express')
 const morgan = require('morgan')
+const cors = require('cors')
 const app = express()
-app.use(express.json())
+require('dotenv').config()
 const Person = require('./models/mongo')
 
-const cors = require('cors')
+const requestLogger = (request, response, next) => {
+  console.log('Method:', request.method)
+  console.log('Path:  ', request.path)
+  console.log('Body:  ', request.body)
+  console.log('---')
+  next()
+}
 
 
+
+app.use(express.json())
+app.use(requestLogger)
 app.use(cors())
-
 app.use(express.static('build'))
  
 
@@ -23,44 +32,11 @@ app.use(morgan(
 
 
 
-/*
-
-    let persons = [
-      {
-        name: "Arto Hellas",
-        number: "040-123456",
-        id: 1
-      },
-      {
-        name: "Ada Lovelace",
-        number: "39-44-5323523",
-        id: 2
-      },
-      {
-        name: "Dan Abramov",
-        number: "12-43-234345",
-        id: 3
-      },
-      {
-        name: "Mary Poppendieck",
-        number: "39-23-6423122",
-        id: 4
-      },
-      {
-        name: "Nalle Nallersson",
-        number: "358-4545454545",
-        id: 5
-      },]
-
-
-    */
-
-
     
     app.get('/api/persons',(req,res) => { 
-      Person.find({}).then(person => {
-        res.json(person)
-        console.log(person);
+      Person.find({}).then(persons => {
+        res.json(persons)
+        console.log(persons);
       }) 
     })
 
@@ -83,7 +59,7 @@ app.use(morgan(
 
     })
  
-
+    /*
     app.delete('/api/persons/:id', (req,res) => {
 
       
@@ -92,6 +68,8 @@ app.use(morgan(
 
         res.status(204).end()
     })
+
+    */
 
     app.post('/api/persons', (req,res) => {
 
@@ -107,7 +85,7 @@ app.use(morgan(
 
             name: body.name,
             number: body.number,
-            id: generateId()
+            id: 2
         })
 
         //let personExists = false
@@ -145,7 +123,11 @@ app.use(morgan(
         return maxId + 1
       }
 
+    const unknownEndpoint = (request, response) => {
+      response.status(404).send({ error: 'unknown endpoint' })
+    }
 
+    app.use(unknownEndpoint)
 
     const PORT = process.env.PORT || 3001;
     console.log(process.env.PORT);
