@@ -53,7 +53,7 @@ app.use(morgan(
     app.get('/api/persons/:id', (req,res) => {
         
         const id = Number(req.params.id)
-        const person = persons.find(person => person.id === id)
+        const person = Person.find(person => person.id === id)
 
         person ? res.json(person) : res.status(404).end()
 
@@ -85,7 +85,7 @@ app.use(morgan(
 
             name: body.name,
             number: body.number,
-            id: 2
+            id: generateId()
         })
 
         //let personExists = false
@@ -118,8 +118,8 @@ app.use(morgan(
     }
 
     const generateId = () => {
-        const maxId = persons.length > 0
-          ? Math.max(...persons.map(n => n.id))
+        const maxId = Person.length > 0
+          ? Math.max(...Person.map(n => n.id))
           : 0
         return maxId + 1
       }
