@@ -102,7 +102,7 @@ app.use(morgan(
           return res.status(400).json({ error: 'content missing' })
         }
 
-        console.log(body.number, body.name);
+        console.log(body.number, body.name, Object.id);
 
         const person = new Person({
 
