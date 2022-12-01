@@ -1,7 +1,8 @@
 const mongoose = require('mongoose')
 
 const url = process.env.MONGODB_URI
-
+console.log(url);
+//const url = 'mongodb+srv://phonebook:pupsinen31@cluster0.buh4i9t.mongodb.net/?retryWrites=true&w=majority'
 //const password = process.argv[2]
 
 

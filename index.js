@@ -1,5 +1,5 @@
 
-require('dotenv').config()
+require('dotenv').config({ path: require('find-config')('.env') })
 const express = require('express')
 const morgan = require('morgan')
 const app = express()
