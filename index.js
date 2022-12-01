@@ -96,27 +96,25 @@ app.use(morgan(
 
         const body = req.body
 
-        if(!body.name) {
-            return res.status(400).json({
-                error:'Name missing'
-            })
+        if (body.content === undefined) {
+          return response.status(400).json({ error: 'content missing' })
         }
 
-        console.log(body.number, body.name);
+        //console.log(body.number, body.name);
 
-        const person = {
+        const person = new Person({
 
             name: body.name,
             number: body.number,
             id: generateId()
-        }
+        })
 
-        let personExists = false
-        persons.map(person => {if(person.name.toLowerCase() === (body.name.toLowerCase())){personExists = true}return personExists})
+        //let personExists = false
+        //persons.map(person => {if(person.name.toLowerCase() === (body.name.toLowerCase())){personExists = true}return personExists})
 
-        const numberIsEmpty = Object.keys(person.number).length < 7
+        //const numberIsEmpty = Object.keys(person.number).length < 7
 
-        if(!personExists && !numberIsEmpty) {
+       /* if(!personExists && !numberIsEmpty) {
 
             persons = persons.concat(person)
             res.json(person)
@@ -125,6 +123,10 @@ app.use(morgan(
 
             return res.status(400).json({error:'Name must be unique or number is missing'})
         }
+        */
+       person.save().then(savedPerson => {
+        res.json(savedPerson)
+       })
     })
 
     const phoneNumberGenerator = () => {
