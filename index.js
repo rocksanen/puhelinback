@@ -31,15 +31,13 @@ app.use(morgan(
 ' :response-time ms - :body - :req[content-length]'));
 
 
-
-
-
     
     app.get('/api/persons',(req,res) => { 
       Person.find({}).then(persons => {
         res.json(persons)
         console.log(persons);
-      }) 
+      })
+      .catch(error => next(error))
     })
 
      
@@ -94,7 +92,7 @@ app.use(morgan(
 
     
 
-    app.post('/api/persons', (req,res) => {
+    app.post('/api/persons', (req,res,next) => {
 
         const body = req.body
 
@@ -111,38 +109,14 @@ app.use(morgan(
             _id: generateId()
         })
 
-        //let personExists = false
-        //persons.map(person => {if(person.name.toLowerCase() === (body.name.toLowerCase())){personExists = true}return personExists})
-
-        //const numberIsEmpty = Object.keys(person.number).length < 7
-
-       /* if(!personExists && !numberIsEmpty) {
-
-            persons = persons.concat(person)
-            res.json(person)
-               
-        }else{
-
-            return res.status(400).json({error:'Name must be unique or number is missing'})
-        }
-        */
        person.save().then(savedPerson => {
         res.json(savedPerson)
         console.log(savedPerson, "saved person");
        })
+       .catch(error => next(error))
     })
 
-    const phoneNumberGenerator = () => {
-
-        const number = Math.floor(Math.random() * (10000000 - 1000000) + 1000000).toString()
-        const area = '358'
-        return `${area}-${number}`
-
-    }
-
     const generateId = () => {
-
-      let persona = ''
 
       Person.find({}).then(persons => {
         persons.json(persons)
@@ -151,13 +125,9 @@ app.use(morgan(
           ? Math.max(...persons.map(n => n.id))
           : 0
         return maxId + 1
-
-
-      }) 
-
-      //console.log(persons, "tsekkaa tää");
-
-      }
+      })
+      .catch(error => next(error))
+    }
 
     const unknownEndpoint = (request, response) => {
       response.status(404).send({ error: 'unknown endpoint' })
