@@ -1,11 +1,13 @@
 
+require('dotenv').config()
 const express = require('express')
 const morgan = require('morgan')
 const app = express()
 app.use(express.json())
-const Person = require('./mongo')
+const Person = require('./models/mongo')
 
 const cors = require('cors')
+
 
 app.use(cors())
 
@@ -53,11 +55,6 @@ app.use(morgan(
 
     */
 
-      const person = new Person({
-        name: body.name,
-        number: body.number,
-        id: generateId(),
-      })
 
     
     app.get('/api/persons',(req,res) => { 
@@ -149,5 +146,9 @@ app.use(morgan(
 
     const PORT = process.env.PORT || 3001;
     console.log(process.env.PORT);
-    app.listen(PORT)
-    console.log(`Server running on port ${PORT}`)
+    app.listen(PORT, () => {
+
+      console.log(`Server running on port ${PORT}`)
+
+    })
+    
